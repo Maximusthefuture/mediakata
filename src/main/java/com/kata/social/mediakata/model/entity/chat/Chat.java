@@ -7,6 +7,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,6 +27,10 @@ public class Chat {
     private String image;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST}, targetEntity = Message.class)
+    @JoinTable(joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
+    private Set<Message> messages;
+
     @Type(type = "org.hibernate.type.LocalDateTimeType")
     @CreationTimestamp
     private LocalDateTime persistDate;

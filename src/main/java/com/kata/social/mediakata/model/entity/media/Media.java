@@ -1,6 +1,7 @@
 package com.kata.social.mediakata.model.entity.media;
 
 
+import com.kata.social.mediakata.model.entity.album.Album;
 import com.kata.social.mediakata.model.entity.user.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -49,4 +50,8 @@ public class Media {
     @Type(type = "org.hibernate.type.LocalDateTimeType")
     @CreationTimestamp
     private LocalDateTime persistDate;
+
+    @ManyToOne
+    @JoinColumn(name = "album_id")
+    private Album album;
 }
