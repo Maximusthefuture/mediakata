@@ -19,7 +19,11 @@ public abstract class GenericDaoAbstract<T, PK extends Serializable> implements 
 
     private final Class<T> clazz;
 
-
+    /*
+    Ошибка при попытке наследования от этого класса(GenericDaoAbstract)
+    Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.kata.social.mediakata.dao.impl.dto.DaoImpl]:
+     Constructor threw exception; nested exception is java.lang.ClassCastException: class java.lang.Class cannot be cast to class java.lang.reflect.ParameterizedType (java.lang.Class and java.lang.reflect.ParameterizedType are in module java.base of loader 'bootstrap')
+     */
     @SuppressWarnings("unchecked")
     public GenericDaoAbstract() {
         Type t = getClass().getSuperclass();
