@@ -66,3 +66,16 @@
 Завершите создание реквеста, приложите ссылку на него в карточку таска на Trello.
 
 ![](src/main/resources/static/images/git_tutor/git_merge_req_final.png)
+
+### Тестирование
+
+Использование класса AbstractSpringTest
+
+Для использования класса AbstractSpringTest нужно скачать Docker.
+Для работы докера в Windows нужно дополнительно установить WSL.
+
+В классе Postgres в пакете initializer eсть PostgreSQLContainer который загружает в докер изображение БД.
+Также в этом классе есть статический вложенный класс Initializer, который подменяет при тестах spring datasource: url, username, password.
+
+Если мы хотим использовать другую БД, то нам нужно использовать другое изображение БД в 
+докере и указать этот класс в ContextConfiguration в классе AbstractSpringTest.
