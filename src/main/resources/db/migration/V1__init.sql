@@ -1,208 +1,172 @@
-CREATE
-SEQUENCE IF NOT EXISTS active_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists active_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS albums_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists albums_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS chats_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists chats_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS groups_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists groups_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS media_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists media_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS messages_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists messages_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS post_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists post_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS role_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists role_seq start with 1 increment by 1;
 
-CREATE
-SEQUENCE IF NOT EXISTS user_seq START
-WITH 1 INCREMENT BY 1;
+create sequence if not exists user_seq start with 1 increment by 1;
 
-CREATE TABLE active
+create table active
 (
-    id   BIGINT NOT NULL,
-    name VARCHAR(255),
-    CONSTRAINT pk_active PRIMARY KEY (id)
+    id   bigint not null
+        primary key,
+    name varchar(255)
 );
 
-CREATE TABLE albums
+create table chats
 (
-    id            BIGINT NOT NULL,
-    name          VARCHAR(255),
-    icon          VARCHAR(255),
-    user_owner_id BIGINT,
-    media_type    INTEGER,
-    persist_date  TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    CONSTRAINT pk_albums PRIMARY KEY (id)
+    id           bigint not null
+        primary key,
+    image        varchar(255),
+    persist_date timestamp,
+    title        varchar(255)
 );
 
-CREATE TABLE chats
+create table roles
 (
-    id           BIGINT NOT NULL,
-    title        VARCHAR(255),
-    image        VARCHAR(255),
-    persist_date TIMESTAMP WITHOUT TIME ZONE,
-    CONSTRAINT pk_chats PRIMARY KEY (id)
+    id   bigint not null
+        primary key,
+    name varchar(255)
 );
 
-CREATE TABLE chats_messages
+create table users
 (
-    chat_id    BIGINT NOT NULL,
-    message_id BIGINT NOT NULL,
-    CONSTRAINT pk_chats_messages PRIMARY KEY (chat_id, message_id)
-);
-
-CREATE TABLE group_wall
-(
-    group_id BIGINT NOT NULL,
-    post_id  BIGINT NOT NULL,
-    CONSTRAINT pk_group_wall PRIMARY KEY (group_id, post_id)
-);
-
-CREATE TABLE groups
-(
-    id                  BIGINT NOT NULL,
-    name                VARCHAR(255),
-    last_redaction_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    persist_date        TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    link_site           VARCHAR(255),
-    description         VARCHAR(255),
-    address_image_group VARCHAR(255),
-    owner_id            BIGINT NOT NULL,
-    CONSTRAINT pk_groups PRIMARY KEY (id)
-);
-
-CREATE TABLE media
-(
-    id           BIGINT NOT NULL,
-    url          VARCHAR(255),
-    user_id      BIGINT NOT NULL,
-    media_type   INTEGER,
-    persist_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    album_id     BIGINT,
-    CONSTRAINT pk_media PRIMARY KEY (id)
-);
-
-CREATE TABLE media_message
-(
-    media_id   BIGINT NOT NULL,
-    message_id BIGINT NOT NULL,
-    CONSTRAINT pk_media_message PRIMARY KEY (media_id, message_id)
-);
-
-CREATE TABLE messages
-(
-    id           BIGINT  NOT NULL,
-    message      VARCHAR(255),
-    is_unread    BOOLEAN NOT NULL,
-    persist_date TIMESTAMP WITHOUT TIME ZONE,
-    user_id      BIGINT  NOT NULL,
-    CONSTRAINT pk_messages PRIMARY KEY (id)
-);
-
-CREATE TABLE posts
-(
-    id           BIGINT NOT NULL,
-    title        VARCHAR(50),
-    text         VARCHAR(1000),
-    user_id      BIGINT NOT NULL,
-    persist_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    CONSTRAINT pk_posts PRIMARY KEY (id)
-);
-
-CREATE TABLE roles
-(
-    id   BIGINT NOT NULL,
-    name VARCHAR(255),
-    CONSTRAINT pk_roles PRIMARY KEY (id)
-);
-
-CREATE TABLE users
-(
-    id            BIGINT NOT NULL,
-    email         VARCHAR(255),
-    first_name    VARCHAR(255),
-    last_name     VARCHAR(255),
+    id            bigint    not null
+        primary key,
+    about         varchar(255),
+    image         varchar(255),
+    city          varchar(255),
     date_of_birth date,
-    about         VARCHAR(255),
-    status        VARCHAR(255),
-    image         VARCHAR(255),
-    password      VARCHAR(255),
-    education     VARCHAR(255),
-    city          VARCHAR(255),
-    active_id     BIGINT NOT NULL,
-    is_enable     BOOLEAN,
-    perstist_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    role_id       BIGINT NOT NULL,
-    CONSTRAINT pk_users PRIMARY KEY (id)
+    education     varchar(255),
+    email         varchar(255)
+        constraint uk_6dotkott2kjsp8vw4d0m25fb7
+            unique,
+    first_name    varchar(255),
+    is_enable     integer,
+    last_name     varchar(255),
+    password      varchar(255),
+    persist_date timestamp not null,
+    status        varchar(255),
+    active_id     bigint    not null
+        constraint fkl7ve5em3l5axquvrlf5e39dpl
+            references active,
+    role_id       bigint    not null
+        constraint fkp56c1712k691lhsyewcssf40f
+            references roles
 );
 
-ALTER TABLE chats_messages
-    ADD CONSTRAINT uc_chats_messages_message UNIQUE (message_id);
+create table albums
+(
+    id            bigint    not null
+        primary key,
+    icon          varchar(255),
+    persist_date  timestamp not null,
+    media_type    integer,
+    name          varchar(255),
+    user_owner_id bigint
+        constraint fkcgps0vjsdhsbhqrjnh3th4b0u
+            references users
+);
 
-ALTER TABLE group_wall
-    ADD CONSTRAINT uc_group_wall_post UNIQUE (post_id);
+create table groups
+(
+    id                  bigint    not null
+        primary key,
+    address_image_group varchar(255),
+    description         varchar(255),
+    last_redaction_date timestamp not null,
+    link_site           varchar(255),
+    name                varchar(255),
+    persist_date        timestamp not null,
+    owner_id            bigint    not null
+        constraint fkke9gpecgx7u1oef8lsd9tax3c
+            references users
+);
 
-ALTER TABLE media_message
-    ADD CONSTRAINT uc_media_message_media UNIQUE (media_id);
+create table media
+(
+    id           bigint    not null
+        primary key,
+    media_type   integer,
+    persist_date timestamp not null,
+    url          varchar(255),
+    album_id     bigint
+        constraint fkkqrdr00pw2v5k3q4tqv76cy6i
+            references albums,
+    user_id      bigint    not null
+        constraint fknd8hh0yn7qvv4pqyk8mg7l1ox
+            references users
+);
 
-ALTER TABLE users
-    ADD CONSTRAINT uc_users_email UNIQUE (email);
+create table messages
+(
+    id           bigint  not null
+        primary key,
+    is_unread    integer not null,
+    persist_date timestamp,
+    message      varchar(255),
+    user_id      bigint  not null
+        constraint fkpsmh6clh3csorw43eaodlqvkn
+            references users
+);
 
-ALTER TABLE albums
-    ADD CONSTRAINT FK_ALBUMS_ON_USER_OWNER FOREIGN KEY (user_owner_id) REFERENCES users (id);
+create table chats_messages
+(
+    chat_id    bigint not null
+        constraint fkef9q5a0katwu25wrnpgok8e7d
+            references chats,
+    message_id bigint not null
+        constraint uk_bsv8evvp3wdupfmn9hl67y2ex
+            unique
+        constraint fklex1h42qdsu1hjryg27b0o7pp
+            references messages,
+    primary key (chat_id, message_id)
+);
 
-ALTER TABLE groups
-    ADD CONSTRAINT FK_GROUPS_ON_OWNER FOREIGN KEY (owner_id) REFERENCES users (id);
+create table media_message
+(
+    message_id bigint not null
+        constraint fkealyiwcbiqv48qr1uc2f923e4
+            references messages,
+    media_id   bigint not null
+        constraint uk_cg753lq91wvt7idrw38kq2h20
+            unique
+        constraint fk1m7isd2bt4frykewv4xiqog3i
+            references media,
+    primary key (message_id, media_id)
+);
 
-ALTER TABLE media
-    ADD CONSTRAINT FK_MEDIA_ON_ALBUM FOREIGN KEY (album_id) REFERENCES albums (id);
+create table posts
+(
+    id           bigint    not null
+        primary key,
+    persist_date timestamp not null,
+    text         varchar(1000),
+    title        varchar(50),
+    user_id      bigint    not null
+        constraint fk5lidm6cqbc7u4xhqpxm898qme
+            references users
+);
 
-ALTER TABLE media
-    ADD CONSTRAINT FK_MEDIA_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
-
-ALTER TABLE messages
-    ADD CONSTRAINT FK_MESSAGES_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
-
-ALTER TABLE posts
-    ADD CONSTRAINT FK_POSTS_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
-
-ALTER TABLE users
-    ADD CONSTRAINT FK_USERS_ON_ACTIVE FOREIGN KEY (active_id) REFERENCES active (id);
-
-ALTER TABLE users
-    ADD CONSTRAINT FK_USERS_ON_ROLE FOREIGN KEY (role_id) REFERENCES roles (id);
-
-ALTER TABLE chats_messages
-    ADD CONSTRAINT fk_chames_on_chat FOREIGN KEY (chat_id) REFERENCES chats (id);
-
-ALTER TABLE chats_messages
-    ADD CONSTRAINT fk_chames_on_message FOREIGN KEY (message_id) REFERENCES messages (id);
-
-ALTER TABLE group_wall
-    ADD CONSTRAINT fk_growal_on_group FOREIGN KEY (group_id) REFERENCES groups (id);
-
-ALTER TABLE group_wall
-    ADD CONSTRAINT fk_growal_on_post FOREIGN KEY (post_id) REFERENCES posts (id);
-
-ALTER TABLE media_message
-    ADD CONSTRAINT fk_medmes_on_media FOREIGN KEY (media_id) REFERENCES media (id);
-
-ALTER TABLE media_message
-    ADD CONSTRAINT fk_medmes_on_message FOREIGN KEY (message_id) REFERENCES messages (id);
+create table group_wall
+(
+    group_id bigint not null
+        constraint fkhde1qpuipv4ouvqw02gxruc2h
+            references groups,
+    post_id  bigint not null
+        constraint uk_k0mxoo8evldcjcq1iva6o7bvq
+            unique
+        constraint fkqkll3lqcxuse5558nxawjgmp4
+            references posts,
+    primary key (group_id, post_id)
+);

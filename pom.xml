@@ -81,17 +81,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>6.4.3</version>
-                <configuration>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://91.241.64.181:5432/media_kata?characterEncoding=UTF-8&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</url>
-                    <user>postgres</user>
-                    <password>root</password>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -105,5 +94,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
