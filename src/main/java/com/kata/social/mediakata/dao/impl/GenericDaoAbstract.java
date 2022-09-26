@@ -22,7 +22,7 @@ public abstract class GenericDaoAbstract<T, PK extends Serializable> implements 
 
     @SuppressWarnings("unchecked")
     public GenericDaoAbstract() {
-        Type t = getClass().getSuperclass();
+        Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         clazz = (Class) pt.getActualTypeArguments()[0];
     }
@@ -40,7 +40,7 @@ public abstract class GenericDaoAbstract<T, PK extends Serializable> implements 
     @Override
     public Optional<T> getById(PK id) {
         TypedQuery<T> query = entityManager.createQuery(
-                        "SELECT a FROM " + clazz.getSimpleName() + "as a WHERE a.id = :paramId", clazz)
+                        "SELECT a FROM " + clazz.getSimpleName() + " as a WHERE a.id = :paramId", clazz)
                 .setParameter("paramId", id);
         return SingleResultUtil.getSingleResultOrNull(query);
     }
