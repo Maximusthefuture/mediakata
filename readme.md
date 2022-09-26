@@ -78,16 +78,16 @@
 
 2. Выберите опцию **Modify Options**
 
-![](src/main/resources/static/images/profiles%20tutorial/open config.png)
+![](src/main/resources/static/images/profiles%20tutorial/open_config.png)
 
 3. В выплывающем меню выберите настройку **Environment variables** и **Active profiles** (если не выбрана по умолчанию)
-   ![](src/main/resources/static/images/profiles%20tutorial/check property.png)
+   ![](src/main/resources/static/images/profiles%20tutorial/check_property.png)
 4. В появившемся поле необходимо вписать значения переменных DB_HOST, DB_PORT, DB_NAME, PSQL_USERNAME, PSQL_PASS  - 
    URL, логин и пароль локального сервера, а так же вписать в поле **Active profiles** значение local
 
 Пример:
 DB_HOST=localhost;DB_PORT=5432;DB_NAME=postgres;PSQL_USERNAME=postgres;PSQL_PASS=1111
-![](src/main/resources/static/images/profiles%20tutorial/write variables.png)
+![](src/main/resources/static/images/profiles%20tutorial/write_variables.png)
 
 ### Тестирование
 
