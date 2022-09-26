@@ -19,14 +19,10 @@ public abstract class GenericDaoAbstract<T, PK extends Serializable> implements 
 
     private final Class<T> clazz;
 
-    /*
-    Ошибка при попытке наследования от этого класса(GenericDaoAbstract)
-    Instantiation of bean failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.kata.social.mediakata.dao.impl.dto.DaoImpl]:
-     Constructor threw exception; nested exception is java.lang.ClassCastException: class java.lang.Class cannot be cast to class java.lang.reflect.ParameterizedType (java.lang.Class and java.lang.reflect.ParameterizedType are in module java.base of loader 'bootstrap')
-     */
+
     @SuppressWarnings("unchecked")
     public GenericDaoAbstract() {
-        Type t = getClass().getSuperclass();
+        Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         clazz = (Class) pt.getActualTypeArguments()[0];
     }
@@ -44,7 +40,7 @@ public abstract class GenericDaoAbstract<T, PK extends Serializable> implements 
     @Override
     public Optional<T> getById(PK id) {
         TypedQuery<T> query = entityManager.createQuery(
-                        "SELECT a FROM " + clazz.getSimpleName() + "as a WHERE a.id = :paramId", clazz)
+                        "SELECT a FROM " + clazz.getSimpleName() + " as a WHERE a.id = :paramId", clazz)
                 .setParameter("paramId", id);
         return SingleResultUtil.getSingleResultOrNull(query);
     }
