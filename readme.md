@@ -100,5 +100,7 @@ DB_HOST=localhost;DB_PORT=5432;DB_NAME=postgres;PSQL_USERNAME=postgres;PSQL_PASS
 В классе Postgres в пакете initializer eсть PostgreSQLContainer который загружает в докер изображение БД.
 Также в этом классе есть статический вложенный класс Initializer, который подменяет при тестах spring datasource: url, username, password.
 
+При тестировании своего класса с тестовыми данными используйте аннотацию @Sql и в ней введите путь до файла sql c тестовыми данными. Ex. @Sql("/sql/data.sql")
+
 Если мы хотим использовать другую БД, то нам нужно использовать другое изображение БД в
 докере и указать этот класс в ContextConfiguration в классе AbstractSpringTest.
