@@ -22,7 +22,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (userService.getUserByEmail(username).isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         } else {
-            System.out.println(userService.getUserByEmail(username) + "loaduserbyusername");
             return userService.getUserByEmail(username).get();
         }
     }

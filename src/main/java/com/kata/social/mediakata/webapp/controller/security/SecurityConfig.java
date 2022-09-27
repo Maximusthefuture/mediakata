@@ -1,5 +1,4 @@
 package com.kata.social.mediakata.webapp.controller.security;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,26 +25,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/users").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/users").authenticated()
+                .antMatchers("/admin").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().disable();
-        System.out.println("configure");
+                .formLogin().disable()
+                .httpBasic();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
 
     @Bean
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
-//        authenticationProvider.setPasswordEncoder(getPasswordEncoder());
-        System.out.println("daoAuth");
+        authenticationProvider.setPasswordEncoder(getPasswordEncoder());
         return authenticationProvider;
     }
 
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder(12);
-//    }
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
 }
