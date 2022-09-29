@@ -1,6 +1,6 @@
-package com.kata.social.mediakata.webapp.controller.security;
+package com.kata.social.mediakata.security;
 
-import com.kata.social.mediakata.service.abstracts.model.UserService;
+import com.kata.social.mediakata.service.abstracts.model.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

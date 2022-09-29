@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.webapp.controller.security;
+package com.kata.social.mediakata.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
