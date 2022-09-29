@@ -83,7 +83,7 @@ public class User implements UserDetails {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean isEnable = false;
 
-    @Column(name = "perstist_date", nullable = false, updatable = false)
+    @Column(name = "persist_date", nullable = false, updatable = false)
     @Type(type = "org.hibernate.type.LocalDateTimeType")
     @CreationTimestamp
     private LocalDateTime persistDate;
