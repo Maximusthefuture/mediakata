@@ -5,20 +5,23 @@ import com.kata.social.mediakata.dao.impl.dto.UserDtoDaoImpl;
 import com.kata.social.mediakata.model.dto.page.PageDto;
 import com.kata.social.mediakata.service.abstracts.dto.pagination.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
 
     UserDtoDaoImpl userDtoDao;
-    Map<String, PaginationDao> paginationDaos;
+    Map<String, PaginationDao> paginationDaos = new HashMap<>();
 
     @Autowired
     public PaginationServiceImpl(UserDtoDaoImpl userDtoDao) {
         this.userDtoDao = userDtoDao;
-        paginationDaos.put("users", userDtoDao);
+        paginationDaos.put("getUsersPage", userDtoDao);
     }
 
 
@@ -27,6 +30,7 @@ public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
         int currentPage = (int) parameters.get("currentPage");
         int itemsOnPage = (int) parameters.get("itemsOnPage");
+
 
         List items = paginationDaos.get(methodName).getItems(parameters);
         Long totalItemsCount = paginationDaos.get(methodName).getItemsCount(parameters);

@@ -1,30 +1,34 @@
 package com.kata.social.mediakata.model.dto.page;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Setter
+@Getter
 public class PageDto<T> {
 
-    int currentPage;
+    private int currentPage;
 
-    int totalPages;
+    private int totalPages;
 
-    int itemsOnPage;
+    private int itemsOnPage;
 
-    Long totalItemsCount;
+    private Long totalItemsCount;
 
-    List<T> items;
+    private List<T> items;
 
     public PageDto(int currentPage,int itemsOnPage, Long totalItemsCount, List<T> items) {
 
         this.currentPage = currentPage;
-        this.totalPages = (int) (totalItemsCount % itemsOnPage);
+        if(totalItemsCount < itemsOnPage ) {
+            totalPages = 1;
+        } else {
+            this.totalPages = (int) Math.ceil((double)totalItemsCount / itemsOnPage);
+        }
         this.itemsOnPage = itemsOnPage;
         this.totalItemsCount = totalItemsCount;
         this.items = items;
     }
-
-
 }
