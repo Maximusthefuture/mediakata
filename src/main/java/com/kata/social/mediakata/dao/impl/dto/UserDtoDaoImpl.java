@@ -5,15 +5,14 @@ import com.kata.social.mediakata.dao.abstracts.model.user.UserDao;
 import com.kata.social.mediakata.dao.util.MappingUtils;
 import com.kata.social.mediakata.dao.util.PageListUtils;
 import com.kata.social.mediakata.model.dto.user.UserDto;
-import com.kata.social.mediakata.model.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 
 

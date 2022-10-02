@@ -21,10 +21,10 @@ INSERT INTO public.users (id, about, image, city, date_of_birth, education, emai
             (4::bigint, '1'::varchar(255), '1'::varchar(255), '1'::varchar(255), '2022-10-09'::date, '1'::varchar(255),
                         'admin4@'::varchar(255), '1'::varchar(255), 1::integer, '1'::varchar(255), '1'::varchar(255),
                         '2022-10-02 15:36:01.000000'::timestamp, '1'::varchar(255), 2::bigint, 1::bigint),
-             (5::bigint, '1'::varchar(255), '1'::varchar(255), '1'::varchar(255), '2022-10-09'::date, '1'::varchar(255),
+            (5::bigint, '1'::varchar(255), '1'::varchar(255), '1'::varchar(255), '2022-10-09'::date, '1'::varchar(255),
                         'admin5@'::varchar(255), '1'::varchar(255), 1::integer, '1'::varchar(255), '1'::varchar(255),
                         '2022-10-02 15:36:01.000000'::timestamp, '1'::varchar(255), 2::bigint, 1::bigint),
-           (6::bigint, '1'::varchar(255), '1'::varchar(255), '1'::varchar(255), '2022-10-09'::date, '1'::varchar(255),
+            (6::bigint, '1'::varchar(255), '1'::varchar(255), '1'::varchar(255), '2022-10-09'::date, '1'::varchar(255),
                         'admin6@'::varchar(255), '1'::varchar(255), 1::integer, '1'::varchar(255), '1'::varchar(255),
                         '2022-10-02 15:36:01.000000'::timestamp, '1'::varchar(255), 2::bigint, 1::bigint);
 
