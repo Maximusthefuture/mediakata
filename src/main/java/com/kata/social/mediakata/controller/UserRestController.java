@@ -3,6 +3,8 @@ package com.kata.social.mediakata.controller;
 
 import com.kata.social.mediakata.model.dto.UserDto.UserDto;
 import com.kata.social.mediakata.service.abstracts.dto.userDto.UserDtoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class UserRestController {
     }
 
     @GetMapping("/{userId}")
+    @ApiOperation(value = "Метод getUserbyId",
+            notes = "Метод getUserbyId возвращает юзера по id в виде UserDto обернутый в Response Entity")
     public ResponseEntity<UserDto> getUserById (@PathVariable Long userId) {
          Optional<UserDto> userDto = userDtoService.getById(userId);
         return userDto.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))

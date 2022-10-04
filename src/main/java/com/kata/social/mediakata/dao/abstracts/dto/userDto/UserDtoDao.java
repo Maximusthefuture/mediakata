@@ -6,7 +6,7 @@ import com.kata.social.mediakata.model.entity.user.User;
 
 import java.util.Optional;
 
-public interface UserDtoDao extends GenericDao <UserDto, Long> {
+public interface UserDtoDao  {
 
         Optional<UserDto> getUserDtoById(Long id);
     }

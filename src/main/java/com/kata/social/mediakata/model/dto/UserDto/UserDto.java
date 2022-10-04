@@ -1,6 +1,5 @@
 package com.kata.social.mediakata.model.dto.UserDto;
 
-import com.kata.social.mediakata.model.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -28,15 +27,5 @@ public class UserDto {
 
     String education;
 
-    public UserDto (User user) {
-        this.id = user.getId();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.birthday = user.getDateOfBirth();
-        this.aboutMe = user.getAbout();
-        this.avatar = user.getAvatar();
-        this.education = user.getEducation();
-        this.city = user.getCity();
-    }
+
 }
