@@ -3,6 +3,7 @@ package com.kata.social.mediakata.dao.impl;
 import com.kata.social.mediakata.dao.abstracts.GenericDao;
 import com.kata.social.mediakata.dao.util.SingleResultUtil;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
