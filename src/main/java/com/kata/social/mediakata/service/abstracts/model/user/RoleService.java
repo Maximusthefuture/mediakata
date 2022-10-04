@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.service.abstracts.model;
+package com.kata.social.mediakata.service.abstracts.model.user;
 
 import com.kata.social.mediakata.model.entity.user.Role;
 import com.kata.social.mediakata.service.abstracts.GenericService;

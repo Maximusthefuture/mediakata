@@ -3,9 +3,9 @@ package com.kata.social.mediakata.service;
 import com.kata.social.mediakata.model.entity.user.Active;
 import com.kata.social.mediakata.model.entity.user.Role;
 import com.kata.social.mediakata.model.entity.user.User;
-import com.kata.social.mediakata.service.abstracts.model.ActiveService;
+import com.kata.social.mediakata.service.abstracts.model.user.ActiveService;
 
-import com.kata.social.mediakata.service.abstracts.model.RoleService;
+import com.kata.social.mediakata.service.abstracts.model.user.RoleService;
 import com.kata.social.mediakata.service.abstracts.model.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
