@@ -82,7 +82,7 @@ public class TestDataInitService implements ApplicationRunner {
 
     private void generateUsers(int usersCount) {
         Random random = new Random();
-
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         for (int i = 0; i < usersCount; i++) {
             int namesIndex = random.nextInt(firstNames.length);
             int lastNamesIndex = random.nextInt(lastNames.length);
@@ -94,7 +94,6 @@ public class TestDataInitService implements ApplicationRunner {
             Long index = (i % 2 == 0) ? 2L : 1L;
             Optional<Role> role = roleService.getById(index);
             Optional<Active> active = activeService.getById(index);
-            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String password = passwordEncoder.encode(firstNames[namesIndex]+ i);
             createUser(firstNames[namesIndex], lastNames[lastNamesIndex], firstNames[namesIndex] + i + "@mail.ru", about[aboutIndex],
                     education[educationIndex], status[statusIndex], city[cityIndex], password, active.get(), role.get(), avatars[avatarIndex]);
