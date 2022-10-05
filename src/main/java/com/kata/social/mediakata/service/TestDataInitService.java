@@ -13,11 +13,15 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 @Component
 public class TestDataInitService implements ApplicationRunner {
+
+    private static final int USERS_COUNT = 60;
 
     @Autowired
     private RoleService roleService;
@@ -41,25 +45,23 @@ public class TestDataInitService implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         createActive();
         createRoles();
-        generateUsers(60);
+        generateUsers();
     }
 
     private void createActive() {
-        Active active = new Active();
-        Active disabled = new Active();
-        active.setName(actives[0]);
-        disabled.setName(actives[1]);
-        activeService.create(active);
-        activeService.create(disabled);
+        for (int i = 0; i < actives.length; i++) {
+            Active active = new Active();
+            active.setName(actives[i]);
+            activeService.create(active);
+        }
     }
 
     private void createRoles() {
-        Role user = new Role();
-        Role admin = new Role();
-        user.setName(roles[1]);
-        admin.setName(roles[0]);
-        roleService.create(user);
-        roleService.create(admin);
+        for (int i = 0; i < roles.length; i++) {
+            Role role = new Role();
+            role.setName(roles[i]);
+            roleService.create(role);
+        }
     }
 
     private void createUser(String name, String lastName, String email, String about,
@@ -80,23 +82,23 @@ public class TestDataInitService implements ApplicationRunner {
         userService.create(user);
     }
 
-    private void generateUsers(int usersCount) {
-        Random random = new Random();
+    private void generateUsers() {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        for (int i = 0; i < usersCount; i++) {
-            int namesIndex = random.nextInt(firstNames.length);
-            int lastNamesIndex = random.nextInt(lastNames.length);
-            int aboutIndex = random.nextInt(about.length);
-            int educationIndex = random.nextInt(education.length);
-            int statusIndex = random.nextInt(status.length);
-            int cityIndex = random.nextInt(city.length);
-            int avatarIndex = random.nextInt(avatars.length);
+        for (int i = 0; i < USERS_COUNT; i++) {
+            int namesIndex = random(firstNames);
             Long index = (i % 2 == 0) ? 2L : 1L;
             Optional<Role> role = roleService.getById(index);
             Optional<Active> active = activeService.getById(index);
+
             String password = passwordEncoder.encode(firstNames[namesIndex]+ i);
-            createUser(firstNames[namesIndex], lastNames[lastNamesIndex], firstNames[namesIndex] + i + "@mail.ru", about[aboutIndex],
-                    education[educationIndex], status[statusIndex], city[cityIndex], password, active.get(), role.get(), avatars[avatarIndex]);
+            createUser(firstNames[namesIndex], lastNames[random(lastNames)], firstNames[namesIndex] + i + "@mail.ru", about[random(about)],
+                    education[random(education)], status[random(status)], city[random(city)], password, active.get(), role.get(), avatars[random(avatars)]);
         }
     }
+
+    private <T> int random(T[] array) {
+        Random random = new Random();
+        return random.nextInt(array.length);
+    }
+
 }
