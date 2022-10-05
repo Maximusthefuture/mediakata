@@ -27,9 +27,9 @@ public class ExampleTest extends AbstractSpringTest {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("currentPage",1);
         parameters.put("itemsOnPage",3);
-        PageDto usersPage = paginationService.getPageDto("getUsersPage",parameters);
+        PageDto<UserDto> usersPage = paginationService.getPageDto("getUsersPage",parameters);
 
-        List users = usersPage.getItems();
+        List<UserDto> users = usersPage.getItems();
         int totalPages = usersPage.getTotalPages();
 
         Assertions.assertEquals(users.size(),3);
@@ -42,11 +42,11 @@ public class ExampleTest extends AbstractSpringTest {
         parameters.put("currentPage",2);
         parameters.put("itemsOnPage",6);
 
-        PageDto usersPage = paginationService.getPageDto("getUsersPage",parameters);
+        PageDto<UserDto> usersPage = paginationService.getPageDto("getUsersPage",parameters);
 
 
         int totalPages = usersPage.getTotalPages();
-        List users = usersPage.getItems();
+        List<UserDto> users = usersPage.getItems();
 
         Assertions.assertEquals(users.size(), 0);
         Assertions.assertEquals(totalPages, 1);

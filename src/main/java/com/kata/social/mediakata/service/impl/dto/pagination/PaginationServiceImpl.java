@@ -16,26 +16,24 @@ public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
 
     UserDtoDaoImpl userDtoDao;
-    Map<String, PaginationDao> paginationDaos = new HashMap<>();
+    Map<String, PaginationDao<T>> paginationDaos = new HashMap<>();
 
     @Autowired
     public PaginationServiceImpl(UserDtoDaoImpl userDtoDao) {
         this.userDtoDao = userDtoDao;
         paginationDaos.put("getUsersPage", userDtoDao);
     }
-
-
     @Override
-    public PageDto<?> getPageDto(String methodName, Map<String, Object> parameters) {
+    public PageDto<T> getPageDto(String methodName, Map<String, Object> parameters) {
 
         int currentPage = (int) parameters.get("currentPage");
         int itemsOnPage = (int) parameters.get("itemsOnPage");
 
 
-        List items = paginationDaos.get(methodName).getItems(parameters);
+        List<T> items = paginationDaos.get(methodName).getItems(parameters);
         Long totalItemsCount = paginationDaos.get(methodName).getItemsCount(parameters);
 
-        return new PageDto(currentPage,itemsOnPage,totalItemsCount,items);
+        return new PageDto<>(currentPage, itemsOnPage, totalItemsCount, items);
 
     }
 }
