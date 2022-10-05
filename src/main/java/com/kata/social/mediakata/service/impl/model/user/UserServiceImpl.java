@@ -7,8 +7,8 @@ import com.kata.social.mediakata.service.impl.GenericServiceAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserServiceImpl extends GenericServiceAbstract<User, Long> implements UserService {
 
@@ -23,5 +23,10 @@ public class UserServiceImpl extends GenericServiceAbstract<User, Long> implemen
     @Override
     public Optional<User> getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
+    }
+
+    @Override
+    public boolean existByMail(String email) {
+        return userDao.existByMail(email);
     }
 }

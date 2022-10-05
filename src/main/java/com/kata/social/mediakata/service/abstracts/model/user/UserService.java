@@ -11,4 +11,6 @@ public interface UserService extends GenericService<User, Long> {
 
     Optional<User> getUserByEmail(String email);
 
+    boolean existByMail(String email);
+
 }

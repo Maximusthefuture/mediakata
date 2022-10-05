@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /** C помощью аннотации @Api над классом контроллера можно добавить описание контроллера,
- *  для проверки результата введите в браузере http://${DB_HOST}:${DB_PORT}/swagger-ui/   */
+ *  для проверки результата введите в браузере http://HOST:PORT/swagger-ui/   */
 
 @RestController
 @Api(description = "Тестовый контроллер для проверки сваггера")

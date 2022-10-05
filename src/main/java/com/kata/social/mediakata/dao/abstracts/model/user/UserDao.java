@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface UserDao extends GenericDao<User, Long> {
     Optional<User> getUserByEmail(String email);
+
+    boolean existByMail(String email);
 }
