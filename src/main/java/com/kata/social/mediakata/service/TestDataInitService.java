@@ -3,6 +3,7 @@ package com.kata.social.mediakata.service;
 import com.kata.social.mediakata.model.entity.user.Active;
 import com.kata.social.mediakata.model.entity.user.Role;
 import com.kata.social.mediakata.model.entity.user.User;
+import com.kata.social.mediakata.service.abstracts.GenericService;
 import com.kata.social.mediakata.service.abstracts.model.user.ActiveService;
 
 import com.kata.social.mediakata.service.abstracts.model.user.RoleService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class TestDataInitService implements ApplicationRunner {
@@ -86,19 +88,22 @@ public class TestDataInitService implements ApplicationRunner {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         for (int i = 0; i < USERS_COUNT; i++) {
             int namesIndex = random(firstNames);
-            Long index = (i % 2 == 0) ? 2L : 1L;
-            Optional<Role> role = roleService.getById(index);
-            Optional<Active> active = activeService.getById(index);
-
             String password = passwordEncoder.encode(firstNames[namesIndex]+ i);
             createUser(firstNames[namesIndex], lastNames[random(lastNames)], firstNames[namesIndex] + i + "@mail.ru", about[random(about)],
-                    education[random(education)], status[random(status)], city[random(city)], password, active.get(), role.get(), avatars[random(avatars)]);
+                    education[random(education)], status[random(status)], city[random(city)], password, getAll(activeService), getAll(roleService), avatars[random(avatars)]);
         }
     }
 
     private <T> int random(T[] array) {
         Random random = new Random();
         return random.nextInt(array.length);
+    }
+
+    private <T> T getAll(GenericService<T, Long> service) {
+        List<T> roles =  service.getAll();
+        long random = random(roles.toArray()) + 1;
+        Optional<T> t = service.getById(random);
+        return t.orElse(null);
     }
 
 }
