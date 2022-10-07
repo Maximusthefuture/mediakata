@@ -23,7 +23,7 @@ public class UserDaoImpl extends GenericDaoAbstract<User, Long> implements UserD
     public boolean existByMail(String mail) {
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = : mail", User.class);
         query.setParameter("mail", mail);
-        if (SingleResultUtil.getSingleResultOrNull(query) == null) {
+        if (SingleResultUtil.getSingleResultOrNull(query).isEmpty()) {
             return true;
         }
         return false;

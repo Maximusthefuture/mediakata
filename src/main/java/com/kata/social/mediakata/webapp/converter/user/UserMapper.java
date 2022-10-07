@@ -8,13 +8,10 @@ import com.kata.social.mediakata.service.abstracts.model.user.ActiveService;
 import com.kata.social.mediakata.service.abstracts.model.user.RoleService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.Optional;
 
 
@@ -38,10 +35,9 @@ public abstract class UserMapper {
     public void setActiveService(ActiveService activeService) {
         this.activeService = activeService;
     }
-    //Если закомментить эти два маппинга то все работает, но падает при взаимодействии с апишкой
-    @Mapping(target = "role", qualifiedByName = "findRoleByName")
-    @Mapping(target = "active", qualifiedByName = "findByActiveByName")
 
+    @Mapping(target = "role", qualifiedByName = "findRoleByName", constant = "ROLE_USER")
+    @Mapping(target = "active", qualifiedByName = "findActiveByName", constant = "ACTIVE")
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(userRegisterDto.getPassword()))")
     public abstract User toUser(UserRegisterDto userRegisterDto);
 
