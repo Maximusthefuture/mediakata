@@ -86,24 +86,19 @@ public class TestDataInitService implements ApplicationRunner {
 
     private void generateUsers() {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        List<Role> roles = roleService.getAll();
+        List<Active> active = activeService.getAll();
+
         for (int i = 0; i < USERS_COUNT; i++) {
-            int namesIndex = random(firstNames);
-            String password = passwordEncoder.encode(firstNames[namesIndex]+ i);
-            createUser(firstNames[namesIndex], lastNames[random(lastNames)], firstNames[namesIndex] + i + "@mail.ru", about[random(about)],
-                    education[random(education)], status[random(status)], city[random(city)], password, getAll(activeService), getAll(roleService), avatars[random(avatars)]);
+            String namesIndex = random(firstNames);
+            String password = passwordEncoder.encode(namesIndex + i);
+            createUser(namesIndex, random(lastNames), namesIndex + i + "@mail.ru", random(about),
+                    random( education), random(status), random(city), password, (Active)random(active.toArray()), (Role)random(roles.toArray()), random(avatars));
         }
     }
 
-    private <T> int random(T[] array) {
+    private <T> T random(T[] array) {
         Random random = new Random();
-        return random.nextInt(array.length);
+        return array[random.nextInt(array.length)];
     }
-
-    private <T> T getAll(GenericService<T, Long> service) {
-        List<T> roles =  service.getAll();
-        long random = random(roles.toArray()) + 1;
-        Optional<T> t = service.getById(random);
-        return t.orElse(null);
-    }
-
 }
