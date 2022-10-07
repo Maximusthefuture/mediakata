@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
+@Api(description = "CRUD-контроллер сущности User")
 @RequestMapping("api/user")
 public class UserRestController {
 

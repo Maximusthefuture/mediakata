@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserDtoServiceImp extends GenericServiceAbstract <UserDto, Long> implements UserDtoService {
+public class UserDtoServiceImp  implements UserDtoService {
 
     private final UserDtoDao userDtoDao;
 
     @Autowired
     public UserDtoServiceImp(UserDtoDao userDtoDao) {
-        super(userDtoDao);
         this.userDtoDao = userDtoDao;
     }
 
