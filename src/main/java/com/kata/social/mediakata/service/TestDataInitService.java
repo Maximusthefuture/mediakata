@@ -3,7 +3,6 @@ package com.kata.social.mediakata.service;
 import com.kata.social.mediakata.model.entity.user.Active;
 import com.kata.social.mediakata.model.entity.user.Role;
 import com.kata.social.mediakata.model.entity.user.User;
-import com.kata.social.mediakata.service.abstracts.GenericService;
 import com.kata.social.mediakata.service.abstracts.model.user.ActiveService;
 
 import com.kata.social.mediakata.service.abstracts.model.user.RoleService;
@@ -14,11 +13,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class TestDataInitService implements ApplicationRunner {
@@ -93,7 +89,7 @@ public class TestDataInitService implements ApplicationRunner {
             String namesIndex = random(firstNames);
             String password = passwordEncoder.encode(namesIndex + i);
             createUser(namesIndex, random(lastNames), namesIndex + i + "@mail.ru", random(about),
-                    random( education), random(status), random(city), password, (Active)random(active.toArray()), (Role)random(roles.toArray()), random(avatars));
+                    random(education), random(status), random(city), password, (Active)random(active.toArray()), (Role)random(roles.toArray()), random(avatars));
         }
     }
 
