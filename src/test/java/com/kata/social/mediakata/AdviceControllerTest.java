@@ -1,0 +1,37 @@
+package com.kata.social.mediakata;
+
+import com.kata.social.mediakata.webapp.controller.user.UserRestController;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+public class AdviceControllerTest extends AbstractSpringTest{
+
+    public final UserRestController userRestController;
+
+    @Autowired
+    public AdviceControllerTest(UserRestController userRestController) {
+        this.userRestController = userRestController;
+    }
+
+    @Test
+    void AdviceControllerMethodArgumentTypeMismatchExceptionTest() throws Exception {
+
+        super.mockMvc.perform(get("/api/user/p"))
+                .andDo(print())
+                .andExpect(result -> assertTrue(result.getResolvedException()
+                        instanceof MethodArgumentTypeMismatchException))
+                .andExpect(content().
+                        string(containsString("The parameter 'userId' of value " +
+                                "'p' could not be converted to type 'Long'")))
+                .andExpect(status().is4xxClientError());
+    }
+}
