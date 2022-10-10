@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+//@Service
 public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
     private  Map<String, PaginationDao<T>> paginationDaos = new HashMap<>();

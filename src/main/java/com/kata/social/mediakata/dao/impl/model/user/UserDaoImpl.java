@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public class UserDaoImpl extends GenericDaoAbstract<User, Long> implements UserDao {
-
     @Override
     public Optional<User> getUserByEmail(String email) {
         TypedQuery<User> typedQuery = super.entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
