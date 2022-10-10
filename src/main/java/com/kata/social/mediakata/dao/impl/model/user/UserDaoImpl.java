@@ -23,8 +23,8 @@ public class UserDaoImpl extends GenericDaoAbstract<User, Long> implements UserD
         TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.email = : mail", User.class);
         query.setParameter("mail", mail);
         if (SingleResultUtil.getSingleResultOrNull(query).isEmpty()) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

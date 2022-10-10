@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.webapp.controller.user;
+package com.kata.social.mediakata.webapp.controller.security;
 
 import com.kata.social.mediakata.exception.ApiRequestException;
 import com.kata.social.mediakata.model.dto.UserRegisterDto;
@@ -6,11 +6,11 @@ import com.kata.social.mediakata.model.entity.user.User;
 import com.kata.social.mediakata.service.abstracts.model.user.UserService;
 import com.kata.social.mediakata.webapp.converter.user.UserMapper;
 import io.swagger.annotations.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +34,7 @@ public class AuthRestController {
     public ResponseEntity<UserRegisterDto> addUser(@ApiParam("UserRegisterDto для добавления пользователя и проверки его почты")
                                                        @RequestBody UserRegisterDto userRegisterDto) {
         if (userService.existByMail(userRegisterDto.getEmail())) {
-            throw new ApiRequestException("Пользователь с такой почтой уже существует");
+            throw new ApiRequestException("Пользователь с почтой " + userRegisterDto.getEmail() + " уже существует");
         }
 
         User user = userMapper.toUser(userRegisterDto);
