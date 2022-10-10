@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.controller;
+package com.kata.social.mediakata.webapp.controller.user;
 
 
 import com.kata.social.mediakata.model.dto.UserDto.UserDto;
