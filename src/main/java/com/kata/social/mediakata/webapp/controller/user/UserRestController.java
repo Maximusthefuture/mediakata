@@ -39,7 +39,7 @@ public class UserRestController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageDto> getUser(@RequestParam int currentPage, @RequestParam int itemsOnPage) {
+    public ResponseEntity<PageDto> getUsersWithPagination(@RequestParam int currentPage, @RequestParam int itemsOnPage) {
         Map<String, Object> map = new HashMap<>();
         map.put("currentPage", currentPage);
         map.put("itemsOnPage", itemsOnPage);
