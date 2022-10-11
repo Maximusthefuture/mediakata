@@ -14,10 +14,12 @@ import java.util.Map;
 //@Service
 public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
-    private  Map<String, PaginationDao<T>> paginationDaos = new HashMap<>();
 
-    @Autowired
+    private  Map<String, PaginationDao<T>> paginationDaos;
+
+//    @Autowired
     public void setPaginationDaos(Map<String, PaginationDao<T>> paginationDaos) {
+
         this.paginationDaos = paginationDaos;
     }
 
