@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import  com.kata.social.mediakata.initializer.Postgres;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
