@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +29,7 @@ public class PaginationGetAllUsersDaoImpl<T> implements PaginationDao<UserDto> {
 
     @Override
     public Long getItemsCount(Map<String, Object> parameters) {
-        TypedQuery<UserDto> list = entityManager.createQuery("SELECT new com.kata.social.mediakata.model.dto.UserDto.UserDto(u.id,  u.firstName," +
-                " u.lastName, u.email, u.dateOfBirth, u.about, u.avatar, u.city, u.education) FROM User u", UserDto.class);
-        return (long) list.getResultList().size();
+        Query list = entityManager.createQuery("select count(u) from User u");
+        return (long) list.getSingleResult();
     }
 }
