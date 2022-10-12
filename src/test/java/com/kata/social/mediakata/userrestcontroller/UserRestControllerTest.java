@@ -40,8 +40,8 @@ public class UserRestControllerTest extends AbstractSpringTest {
                 ).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items", hasSize(10)))
-                .andExpect(jsonPath("$.items[10].id").value(11))
-                .andExpect(jsonPath("$.items[19].id").value(20));
+                .andExpect(jsonPath("$.items[0].id").value(11))
+                .andExpect(jsonPath("$.items[9].id").value(20));
 
     }
 }
