@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.webapp.controller.user;
+package com.kata.social.mediakata.userrestcontroller;
 
 import com.kata.social.mediakata.AbstractSpringTest;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserRestControllerTest extends AbstractSpringTest {
 
     @Test
-    public void test_get_users_with_pagination() throws Exception {
+    public void test_get_users_with_pagination_page_one() throws Exception {
         int currentPage = 1;
         mockMvc.perform(get("/api/user")
                 .param("currentPage", String.valueOf(currentPage))
@@ -27,6 +27,17 @@ public class UserRestControllerTest extends AbstractSpringTest {
 
     }
 
+    @Test
+    public void test_get_users_with_pagination_page_two() throws Exception {
+        int currentPage = 2;
+        mockMvc.perform(get("/api/user")
+                        .param("currentPage", String.valueOf(currentPage))
+                        .param("itemsOnPage", String.valueOf(10))
+                ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items", hasSize(10)))
+                .andExpect(jsonPath("$.items[10].id").value(11))
+                .andExpect(jsonPath("$.items[19].id").value(20));
 
-
+    }
 }

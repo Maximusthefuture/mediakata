@@ -5,21 +5,17 @@ import com.kata.social.mediakata.exception.PaginationException;
 import com.kata.social.mediakata.model.dto.page.PageDto;
 import com.kata.social.mediakata.service.abstracts.dto.pagination.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.List;
 import java.util.Map;
 
-//@Service
+
 public class PaginationServiceImpl<T> implements PaginationService<Object> {
 
+    private Map<String, PaginationDao> paginationDaos;
 
-    private  Map<String, PaginationDao<T>> paginationDaos;
-
-//    @Autowired
-    public void setPaginationDaos(Map<String, PaginationDao<T>> paginationDaos) {
-
+    @Autowired
+    public void setPaginationDaos(@Qualifier("paginationDaos") Map<String, PaginationDao> paginationDaos) {
         this.paginationDaos = paginationDaos;
     }
 
@@ -38,9 +34,6 @@ public class PaginationServiceImpl<T> implements PaginationService<Object> {
         List<T> items = paginationDao.getItems(parameters);
         Long totalItemsCount = paginationDao.getItemsCount(parameters);
 
-
-
         return new PageDto<>(currentPage, itemsOnPage, totalItemsCount, items);
-
     }
 }
