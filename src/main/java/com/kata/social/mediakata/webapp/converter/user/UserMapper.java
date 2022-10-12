@@ -12,6 +12,7 @@ import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 
@@ -44,13 +45,19 @@ public abstract class UserMapper {
     @Named("findRoleByName")
     protected Role findRoleByName(String name) {
         Optional<Role> role = roleService.findByName(name);
-        return role.isEmpty() ? null : role.get();
+        if (role.isEmpty()) {
+            throw new EntityNotFoundException("Cущность не найдена");
+        }
+        return role.get();
     }
 
     @Named("findActiveByName")
     protected Active findActiveByName(String name) {
         Optional<Active> active = activeService.findByName(name);
-        return active.isEmpty() ? null : active.get();
+        if (active.isEmpty()) {
+            throw new EntityNotFoundException("Cущность не найдена");
+        }
+        return active.get();
 
     }
 
