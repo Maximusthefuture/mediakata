@@ -1,5 +1,6 @@
-package com.kata.social.mediakata;
+package com.kata.social.mediakata.adviceController;
 
+import com.kata.social.mediakata.AbstractSpringTest;
 import com.kata.social.mediakata.webapp.controller.user.UserRestController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-public class AdviceControllerTest extends AbstractSpringTest{
+public class AdviceControllerTest extends AbstractSpringTest {
 
     @Test
     void AdviceControllerMethodArgumentTypeMismatchExceptionTest() throws Exception {
