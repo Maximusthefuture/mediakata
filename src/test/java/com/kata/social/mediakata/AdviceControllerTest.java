@@ -15,13 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdviceControllerTest extends AbstractSpringTest{
 
-    public final UserRestController userRestController;
-
-    @Autowired
-    public AdviceControllerTest(UserRestController userRestController) {
-        this.userRestController = userRestController;
-    }
-
     @Test
     void AdviceControllerMethodArgumentTypeMismatchExceptionTest() throws Exception {
 
