@@ -1,9 +1,7 @@
 package com.kata.social.mediakata.adviceController;
 
 import com.kata.social.mediakata.AbstractSpringTest;
-import com.kata.social.mediakata.webapp.controller.user.UserRestController;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import static org.hamcrest.Matchers.containsString;
