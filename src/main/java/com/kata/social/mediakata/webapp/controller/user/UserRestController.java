@@ -1,8 +1,7 @@
 package com.kata.social.mediakata.webapp.controller.user;
 
-import com.kata.social.mediakata.model.dto.UserDto.UserDto;
+import com.kata.social.mediakata.model.dto.user.UserDto;
 import com.kata.social.mediakata.model.dto.page.PageDto;
-import com.kata.social.mediakata.service.abstracts.dto.pagination.PaginationService;
 import com.kata.social.mediakata.service.abstracts.dto.userDto.UserDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,12 +20,11 @@ import java.util.Optional;
 public class UserRestController {
 
     public final UserDtoService userDtoService;
-    public final PaginationService<Object> paginationService;
 
     @Autowired
-    public UserRestController(UserDtoService userDtoService, PaginationService<Object> paginationService) {
+    public UserRestController(UserDtoService userDtoService) {
         this.userDtoService = userDtoService;
-        this.paginationService = paginationService;
+
     }
 
     @GetMapping("/{userId}")
@@ -43,7 +41,7 @@ public class UserRestController {
         Map<String, Object> map = new HashMap<>();
         map.put("currentPage", currentPage);
         map.put("itemsOnPage", itemsOnPage);
-        return new ResponseEntity<>(paginationService.getPageDto("PaginationGetAllUsersDaoImpl", map), HttpStatus.OK);
+        return new ResponseEntity<>(userDtoService.getAllUserDto(map), HttpStatus.OK);
 
     }
 

@@ -15,7 +15,7 @@ public class PaginationServiceImpl<T> implements PaginationService<Object> {
     private Map<String, PaginationDao> paginationDaos;
 
     @Autowired
-    public void setPaginationDaos(@Qualifier("paginationDaos") Map<String, PaginationDao> paginationDaos) {
+    public void setPaginationDaos(Map<String, PaginationDao> paginationDaos) {
         this.paginationDaos = paginationDaos;
     }
 

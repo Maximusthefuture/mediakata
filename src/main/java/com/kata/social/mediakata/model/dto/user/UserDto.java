@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.model.dto.UserDto;
+package com.kata.social.mediakata.model.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
