@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Sql("/userrestcontroller.sql")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@TestPropertySource(properties = { "testdatainitservice.enabled = false" })
+//@TestPropertySource(properties = { "testdatainitservice.enabled = false" })
 public class UserRestControllerTest extends AbstractSpringTest {
 
     @Test

@@ -10,7 +10,6 @@ import com.kata.social.mediakata.service.abstracts.model.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-@ConditionalOnExpression(value = "${testdatainitservice.enabled}")
 public class TestDataInitService implements ApplicationRunner {
 
     private static final int USERS_COUNT = 60;
