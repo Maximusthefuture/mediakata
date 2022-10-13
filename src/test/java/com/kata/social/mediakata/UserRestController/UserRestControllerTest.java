@@ -1,4 +1,4 @@
-package com.kata.social.mediakata.userrestcontroller;
+package com.kata.social.mediakata.UserRestController;
 
 import com.kata.social.mediakata.AbstractSpringTest;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-@Sql("/userrestcontroller.sql")
+
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@Sql("/UserRestController/dropUsers.sql")
 //@TestPropertySource(properties = { "testdatainitservice.enabled = false" })
 public class UserRestControllerTest extends AbstractSpringTest {
 
+
+    @Sql("/UserRestController/setUsers.sql")
     @Test
     public void test_get_users_with_pagination_page_one() throws Exception {
         int currentPage = 1;
@@ -29,13 +32,13 @@ public class UserRestControllerTest extends AbstractSpringTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items", hasSize(10)))
                 .andExpect(jsonPath("$.items[0].id").value(1))
-                .andExpect(jsonPath("$.items[9].id").value(10));
+                .andExpect(jsonPath("$.items[9].id").value(10))
+                .andExpect(jsonPath("$.items[0].firstName").value("Petya"))
+                .andExpect(jsonPath("$.items[9].firstName").value("Vasya"))
+                .andExpect(jsonPath("$.items[0].lastName").value("Petrov"))
+                .andExpect(jsonPath("$.items[9].lastName").value("Prostoi"));
 
-    }
-
-    @Test
-    public void test_get_users_with_pagination_page_two() throws Exception {
-        int currentPage = 2;
+         currentPage = 2;
         mockMvc.perform(get("/api/user")
                         .param("currentPage", String.valueOf(currentPage))
                         .param("itemsOnPage", String.valueOf(10))
@@ -43,7 +46,31 @@ public class UserRestControllerTest extends AbstractSpringTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items", hasSize(10)))
                 .andExpect(jsonPath("$.items[0].id").value(11))
-                .andExpect(jsonPath("$.items[9].id").value(20));
-
+                .andExpect(jsonPath("$.items[9].id").value(20))
+                .andExpect(jsonPath("$.items[0].lastName").value("NeProstoi"))
+                .andExpect(jsonPath("$.items[9].lastName").value("Vasiolie"));
     }
+
+    @Sql("/UserRestController/setUsers.sql")
+    @Test
+    public void test_get_users_with_pagination_check_all_pages() throws Exception {
+        int currentPage = 1;
+        mockMvc.perform(get("/api/user")
+                .param("currentPage", String.valueOf(currentPage))
+                .param("itemsOnPage", String.valueOf(10))
+        ).andDo(print())
+                .andExpect(jsonPath("$.totalPages").value(2));
+    }
+
+    @Sql("/UserRestController/setUsers.sql")
+    @Test
+    public void test_get_users_with_pagination_check_all_elements() throws Exception {
+        int currentPage = 1;
+        mockMvc.perform(get("/api/user")
+                .param("currentPage", String.valueOf(currentPage))
+                .param("itemsOnPage", String.valueOf(10))
+        ).andDo(print())
+                .andExpect(jsonPath("$.totalItemsCount").value(20));
+    }
+
 }
