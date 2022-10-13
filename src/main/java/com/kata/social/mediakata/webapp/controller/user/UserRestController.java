@@ -37,6 +37,8 @@ public class UserRestController {
     }
 
     @GetMapping()
+    @ApiOperation(value = "Метод getUsersWithPagination",
+            notes = "Метод getUsersWithPagination возвращает юзеров по параментрам currentPage и itemsOnPage в виде PageDto обернутый в Response Entity")
     public ResponseEntity<PageDto> getUsersWithPagination(@RequestParam int currentPage, @RequestParam int itemsOnPage) {
         Map<String, Object> map = new HashMap<>();
         map.put("currentPage", currentPage);
