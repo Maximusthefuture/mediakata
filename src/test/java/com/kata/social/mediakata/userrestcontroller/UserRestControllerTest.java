@@ -3,6 +3,7 @@ package com.kata.social.mediakata.userrestcontroller;
 import com.kata.social.mediakata.AbstractSpringTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -13,8 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-@Sql("userrestcontroller.sql")
+@Sql("/userrestcontroller.sql")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@TestPropertySource(properties = { "testdatainitservice.enabled = false" })
 public class UserRestControllerTest extends AbstractSpringTest {
 
     @Test
