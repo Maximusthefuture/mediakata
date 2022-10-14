@@ -14,12 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@Sql("/UserRestController/dropUsers.sql")
 public class UserRestControllerTest extends AbstractSpringTest {
-
-
-    @Sql("/UserRestController/setUsers.sql")
+    @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,value="/UserRestController/setUsers.sql")
+    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, value="/UserRestController/dropUsers.sql")
     @Test
     public void test_get_users_with_pagination_page_one() throws Exception {
         int currentPage = 1;
