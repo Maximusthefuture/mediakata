@@ -34,7 +34,7 @@ public class AuthRestController {
     public ResponseEntity<UserRegisterDto> addUser(@ApiParam("UserRegisterDto для добавления пользователя и проверки его почты")
                                                        @RequestBody UserRegisterDto userRegisterDto) {
         if (userService.existByMail(userRegisterDto.getEmail())) {
-            throw new ApiRequestException("Пользователь с почтой " + userRegisterDto.getEmail() + " уже существует");
+            throw new ApiRequestException("User with mail '" + userRegisterDto.getEmail() + "' already exists");
         }
 
         User user = userMapper.toUser(userRegisterDto);
