@@ -1,18 +1,17 @@
 package com.kata.social.mediakata.webapp.controller.user;
 
-
-import com.kata.social.mediakata.model.dto.UserDto.UserDto;
+import com.kata.social.mediakata.model.dto.user.UserDto;
+import com.kata.social.mediakata.model.dto.page.PageDto;
 import com.kata.social.mediakata.service.abstracts.dto.userDto.UserDtoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -25,6 +24,7 @@ public class UserRestController {
     @Autowired
     public UserRestController(UserDtoService userDtoService) {
         this.userDtoService = userDtoService;
+
     }
 
     @GetMapping("/{userId}")
@@ -34,6 +34,17 @@ public class UserRestController {
          Optional<UserDto> userDto = userDtoService.getById(userId);
         return userDto.map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping()
+    @ApiOperation(value = "Метод getUsersWithPagination",
+            notes = "Метод getUsersWithPagination возвращает юзеров по параментрам currentPage и itemsOnPage в виде PageDto обернутый в Response Entity")
+    public ResponseEntity<PageDto> getUsersWithPagination(@RequestParam int currentPage, @RequestParam int itemsOnPage) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("currentPage", currentPage);
+        map.put("itemsOnPage", itemsOnPage);
+        return new ResponseEntity<>(userDtoService.getAllUserDto(map), HttpStatus.OK);
+
     }
 
 
